@@ -1,0 +1,46 @@
+body{
+  overflow: hidden;
+
+}
+
+.chatroom{
+ justify-content: stretch;
+ margin-top:250px;
+ width: 450px;
+ overflow:auto;
+ margin-left: 220px;
+ float:left;
+ overflow: auto;
+ line-height:1.7;
+}
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  width: 110%;
+}
+
+.send-message{
+  width:980px;
+  height:45px;
+  margin-left:110px;
+}
+
+.channel-list{
+  line-height: normal;
+}
+
+.signup-form{
+  height: 100vh;
+}
+
+.signout{
+  margin-left:200px;
+}
+
+.signin{
+  margin:150px;
+}
+
+.message__author{
+  font-size:20px;
+}
