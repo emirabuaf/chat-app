@@ -5,9 +5,6 @@ import 'firebase/database'; // This line is important
 
 export const AUTH_USER = "AUTH_USER";
 export const SIGN_OUT_USER = "SIGN_OUT_USER";
-export const AUTH_ERROR = 'AUTH_ERROR';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const SIGNOUT_SUCCESS = 'SIGNOUT_SUCCESS';
 export const SET_USER = 'SET_USER';
 export const CLEAR_USER = 'CLEAR_USER';
 export const SELECT_CHANNEL = 'SELECT_CHANNEL';
@@ -47,32 +44,6 @@ export function setUser(user) {
   }
 }
 
-// export function signUpUser(credentials) {
-//     return function(dispatch) {
-//         firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
-//             .then(response => {
-//                 dispatch(authUser());
-//             })
-//             .catch(error => {
-//                 console.log(error);
-//                 dispatch(authError(error));
-//             });
-//     }
-// }
-//
-//
-//   export function signInUser(credentials) {
-//       return function(dispatch) {
-//           firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
-//               .then(response => {
-//                   dispatch({type:'LOGIN_SUCCESS'});
-//               })
-//               .catch(error => {
-//                   dispatch({type:'LOGIN_ERROR',error});
-//               });
-//       }
-//   }
-
 
   export function signOutUser() {
       return function (dispatch) {
@@ -102,10 +73,3 @@ export function authUser(){
     type:AUTH_USER
   }
 }
-
-// export function authError(error) {
-//     return {
-//         type: AUTH_ERROR,
-//         payload: error
-//     }
-// }

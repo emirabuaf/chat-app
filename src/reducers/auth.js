@@ -1,5 +1,4 @@
 import {AUTH_USER,
-   LOGIN_SUCCESS,
    SIGN_OUT_USER
  } from '../actions';
 
@@ -22,12 +21,6 @@ export default function auth (state=initialState,action){
        authenticated:false,
        authError:null
     };
-    case LOGIN_SUCCESS:
-    console.log('login success');
-    return{
-      ...state,
-      authError:null
-    }
     default:
       return state;
   }

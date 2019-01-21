@@ -5,10 +5,10 @@ export default class Message extends Component {
     return (
       <div className="message">
         <div className="message__author">
-          <strong>{this.props.message.userName}</strong>
+          <strong>{this.props.userName}</strong>
         </div>
 
-          {this.props.message.message}
+          {this.props.message}
       </div>
     )
   }

@@ -66,14 +66,19 @@ componentDidMount(){
       })
 }
 
-  listMessages = messages =>
-  messages.length >0 && messages.map(message => (
-    <Message
-      key={message.timeDetail}
-      message={message}
-      userName={this.props.currentUser}
-    />
-  ));
+listMessages = channels =>{
+    return channels.map(messages => {
+      return Object.keys(messages).map(key => {
+        if(this.props.selectedChannel.id === messages[key].channel_id){
+          return <Message
+              key={messages[key].timeDetail}
+              message={messages[key].message}
+              userName={messages[key].userName}
+            />
+        }
+      })
+    })
+  }
 
   render() {
     const {messages} =this.state
