@@ -15,7 +15,7 @@ class UserPanel extends Component {
       channels:[],
       channelName:'',
       firstLoad:true,
-      activeChannel:''
+      activeChannel:'',
     };
     this.channelsRef = firebase.database().ref('channels');
 }
@@ -58,7 +58,7 @@ componentDidMount(){
     const{channelName} = this.state
     const key = this.channelsRef.push().key;
     if(this.state.channelName){
-      var newChannel = {
+      const newChannel = {
         name:channelName,
         id:key,
         createdBy:{

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import Message from './Message';
+import { Responsive,Icon,Input,Segment } from 'semantic-ui-react';
+
 import { connect } from 'react-redux'
 import firebase from 'firebase';
+
+import Message from './Message';
 import '../styles/app.css';
 
 
@@ -12,6 +15,7 @@ class ChatRoom extends Component {
       userName: null,
       message: '',
       messages: [],
+      loadedmessages:[]
     };
     this.messageRef = firebase.database().ref('messages');
   }
@@ -81,22 +85,25 @@ listMessages = channels =>{
   }
 
   render() {
-    const {messages} =this.state
+
+    const {loadedmessages} =this.state
     return (
-      <div className="form">
+      <Responsive  minWidth={320} maxWidth={1969} className="form">
         <div className="chatroom" style={{height:300, width:'90%'}}>
-          {this.listMessages(messages)}
+          {this.listMessages(loadedmessages)}
         </div>
-          <input
-            className="send-message"
+        <div className="input-button">
+          <Input
+            className="input-field"
             type="text"
-            placeholder="Type message"
+            placeholder="type message"
             value={this.state.message}
             onChange={this.handleChange.bind(this)}
             onKeyPress={this.handleKeyPress.bind(this)}
           />
-        <button onClick={this.handleSend}>Send</button>
-      </div>
+        <Icon icon="send" className="send" onClick={this.handleSend} />
+        </div>
+    </Responsive>
     )};
   }
 

@@ -19,10 +19,23 @@ body{
   width: 110%;
 }
 
-.send-message{
-  width:980px;
+.input-field{
+  width:580px;
   height:45px;
-  margin-left:110px;
+  margin-left:150px;
+  padding:2px 0;
+  border-radius: 50px;
+}
+
+.input-button{
+  position: relative;
+  display: inline-flex;
+}
+
+.send{
+  position: absolute;
+  top:13px;
+  right:10px;
 }
 
 .channel-list{
@@ -43,4 +56,9 @@ body{
 
 .message__author{
   font-size:20px;
+  color:green
+}
+
+.message{
+font-weight:bold
 }
