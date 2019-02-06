@@ -25,7 +25,7 @@ componentDidMount() {
   render() {
     return (
       <div>
-      <SideBar  signOut={this.handleSignOut} />
+      <SideBar signOut={this.handleSignOut} />
       <ChatRoom />
       </div>
   );

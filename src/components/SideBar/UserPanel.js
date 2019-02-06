@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Menu,Grid,Header,Icon,Dropdown,Modal,Form,Button,Input } from 'semantic-ui-react';
+import { Label,Menu,Grid,Header,Icon,Dropdown,Modal,Form,Button,Input } from 'semantic-ui-react';
 import { connect } from 'react-redux'
 import firebase from 'firebase';
 import {selectChannel} from '../../actions';
+import Drawer from '../DrawerMenu';
 
 
 class UserPanel extends Component {
@@ -82,7 +83,6 @@ componentDidMount(){
   let channels=[]
   this.channelsRef.on('value',snapshot => {
     snapshot.forEach(snap => {
-      console.log(channels)
     })
     this.setState({channels:Object.values(snapshot.val())},() =>this.setFirstChannel())
   })
@@ -115,35 +115,40 @@ componentDidMount(){
     <Menu.Item
       key={channel.id}
       onClick={() => this.selectChannel(channel)}
-      name={channel.name}
     >
       # {channel.name}
     </Menu.Item>
   ));
 
+  renderChannelName = () => {
+    return this.state.activeChannel && this.props.selectedChannel.name
+  }
+
   render() {
+
 
     const channels = this.state.channels
     return (
       <Grid>
         <Grid.Column>
           <Grid.Row style={{padding:'1.2em'}}>
-            <Header inverted floated="left" as="h2">
-              <Header.Content style={{margin:"20px"}}>Chat-App</Header.Content>
+            <p style={{fontSize:"20px",fontWeight: 'bold',width:90,marginTop:"-10px",marginLeft: "210px"}}>#{this.state.activeChannel && this.props.selectedChannel.name}</p>
+            <Header
+              style={{marginTop:"-40px"}} inverted floated="left" as="h4">
+              <Dropdown trigger = {
+                <span
+                  style={{margin:"20px"}}>
+                  Chat-App<div style={{marginLeft: "20px"}}><Label circular color="green" />{this.state.user && this.props.currentUser.displayName}</div></span>}>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={this.props.signOut} text="Sign Out"/>
+                <Dropdown.Item text="Settings"/>
+              </Dropdown.Menu>
+              </Dropdown>
             </Header>
+
           </Grid.Row>
-          <Header style={{padding:'0.95em'}} as="h4" inverted>
-            <Dropdown trigger = {
-              <span>{this.state.user && this.props.currentUser.displayName}</span>}>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={this.props.signOut} text="Sign Out"/>
-              <Dropdown.Item text="Settings"/>
-            </Dropdown.Menu>
-            </Dropdown>
-          </Header>
           <Header style={{margin:'20px'}}>
             CHANNELS({channels.length})
-            <Icon onClick={this.openModal}  style={{float:"right"}} name="plus"/>
             <Modal
                style={{width:"600px",marginTop:"180px",marginLeft:"360px", height:"40vh"}}
                open={this.state.modalIsOpen}
@@ -167,6 +172,9 @@ componentDidMount(){
             </Modal>
           {this.listChannels(channels)}
           </Header>
+          <div style={{marginLeft:"20px",fontSize:"15px",fontWeight: 'bold'}} onClick={this.openModal}>
+            Add Channels<Icon name="plus"/>
+          </div>
         </Grid.Column>
       </Grid>
     );
@@ -175,7 +183,8 @@ componentDidMount(){
 
 function mapStateToProps(state){
   return{
-    currentUser:state.user.currentUser
+    currentUser:state.user.currentUser,
+    selectedChannel:state.channel.selectedChannel
   }
 }
 

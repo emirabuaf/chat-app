@@ -3,15 +3,18 @@ body{
 
 }
 
+
+
 .chatroom{
  justify-content: stretch;
- margin-top:250px;
  width: 450px;
  overflow:auto;
  margin-left: 220px;
  float:left;
  overflow: auto;
  line-height:1.7;
+ margin-Bottom:-120px;
+
 }
 .flex-container {
   display: flex;

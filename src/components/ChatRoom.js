@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Responsive,Icon,Input,Segment } from 'semantic-ui-react';
+import { Divider,Button,Responsive,Icon,Input,Segment } from 'semantic-ui-react';
 
 import { connect } from 'react-redux'
 import firebase from 'firebase';
 
 import Message from './Message';
 import '../styles/app.css';
+import logo from '../slack-chat.jpg';
 
 
 class ChatRoom extends Component {
@@ -64,7 +65,6 @@ componentDidMount(){
       .on('value',snapshot => {
         snapshot.forEach(snap => {
           loadedmessages.push(snap.val())
-          console.log(loadedmessages)
         })
         this.setState({loadedmessages:Object.values(snapshot.val())})
       })
@@ -89,8 +89,15 @@ listMessages = channels =>{
     const {loadedmessages} =this.state
     return (
       <Responsive  minWidth={320} maxWidth={1969} className="form">
+        <div style={{width:1200,marginTop:'30px',marginLeft:'100px',backgroundColor: 'gray'}}>
+          <img style={{height:100,width:480,marginLeft: 350,marginTop:60}} src={logo} alt="Logo" />
+        </div>
+          <p style={{marginTop:'15px',fontSize:'20px',fontWeight:'bold',marginLeft:550}}>Bring your team into Slack</p>
+          <p style={{marginTop:'15px',fontSize:'20px',marginLeft:380}}>Slack is better with teammates - Invite them to start collaborating</p>
+          <Button style={{marginTop:'5px',marginLeft:620}} size="small" color='green'>Add People</Button>
+        <Divider style={{width:1200,marginLeft:"100px"}}  section />
         <div className="chatroom" style={{height:300, width:'90%'}}>
-          {this.listMessages(loadedmessages)}
+        {this.listMessages(loadedmessages)}
         </div>
         <div className="input-button">
           <Input
@@ -101,8 +108,9 @@ listMessages = channels =>{
             onChange={this.handleChange.bind(this)}
             onKeyPress={this.handleKeyPress.bind(this)}
           />
-        <Icon icon="send" className="send" onClick={this.handleSend} />
-        </div>
+          <Icon icon="send" className="send" onClick={this.handleSend} />
+
+    </div>
     </Responsive>
     )};
   }
