@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Label,Menu,Grid,Header,Icon,Dropdown,Modal,Form,Button,Input } from 'semantic-ui-react';
 import { connect } from 'react-redux'
 import firebase from 'firebase';
-import {selectChannel} from '../../actions';
-import Drawer from '../DrawerMenu';
-
+import * as actions from '../../actions';
 
 class UserPanel extends Component {
 
@@ -126,13 +124,12 @@ componentDidMount(){
 
   render() {
 
-
     const channels = this.state.channels
     return (
       <Grid>
         <Grid.Column>
           <Grid.Row style={{padding:'1.2em'}}>
-            <p style={{fontSize:"20px",fontWeight: 'bold',width:90,marginTop:"-10px",marginLeft: "210px"}}>#{this.state.activeChannel && this.props.selectedChannel.name}</p>
+            <p onClick={this.props.openDrawer} style={{fontSize:"20px",fontWeight: 'bold',width:90,marginTop:"-10px",marginLeft: "210px"}}>#{this.state.activeChannel && this.props.selectedChannel.name}</p>
             <Header
               style={{marginTop:"-40px"}} inverted floated="left" as="h4">
               <Dropdown trigger = {
@@ -188,4 +185,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps,{selectChannel})(UserPanel);
+export default connect(mapStateToProps,actions)(UserPanel);

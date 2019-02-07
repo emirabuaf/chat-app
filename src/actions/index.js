@@ -8,6 +8,8 @@ export const SIGN_OUT_USER = "SIGN_OUT_USER";
 export const SET_USER = 'SET_USER';
 export const CLEAR_USER = 'CLEAR_USER';
 export const SELECT_CHANNEL = 'SELECT_CHANNEL';
+export const TOGGLE_DRAWER = 'TOGGLE_DRAWER';
+export const CLOSE_DRAWER = 'CLOSE_DRAWER';
 
 const config = {
   apiKey: "AIzaSyCHQAfMk80sgGJygf02I6qIvyahvIZFPRA",
@@ -19,6 +21,17 @@ const config = {
 };
 firebase.initializeApp(config);
 
+export function closeDrawer(){
+  return{
+    type:CLOSE_DRAWER
+  }
+}
+
+export function openDrawer(){
+  return{
+    type:TOGGLE_DRAWER
+  }
+}
 
 export function selectChannel(channel){
   return{

@@ -1,9 +1,6 @@
 body{
   overflow: hidden;
-
 }
-
-
 
 .chatroom{
  justify-content: stretch;
@@ -11,15 +8,9 @@ body{
  overflow:auto;
  margin-left: 220px;
  float:left;
- overflow: auto;
  line-height:1.7;
- margin-Bottom:-120px;
+ margin-Bottom:-130px;
 
-}
-.flex-container {
-  display: flex;
-  flex-direction: row;
-  width: 110%;
 }
 
 .input-field{

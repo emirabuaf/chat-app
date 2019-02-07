@@ -3,6 +3,7 @@ import UserPanel from './UserPanel';
 import { Menu } from 'semantic-ui-react';
 import firebase from 'firebase';
 import { connect } from 'react-redux';
+import Drawer from '../DrawerMenu';
 
 
 class SideBar extends Component {
@@ -68,6 +69,7 @@ class SideBar extends Component {
 
 
   render() {
+
     console.log(this.state.user && this.props.currentUser.displayName)
     const users = this.state.users
     return (
@@ -76,6 +78,9 @@ class SideBar extends Component {
         <div style={{fontSize:"20px",marginLeft:"20px",marginTop:"50px"}}>
           {this.listUser(users)}
         </div>
+        {this.props.toggleDrawer ?
+        <Drawer selectedChannel={this.props.selectedChannel} /> : null
+        }
       </Menu>
     );
   }
@@ -83,7 +88,10 @@ class SideBar extends Component {
 
 function mapStateToProps(state){
   return{
-  currentUser:state.user.currentUser
+  currentUser:state.user.currentUser,
+  toggleDrawer:state.drawer.drawerOpen,
+  selectedChannel:state.channel.selectedChannel
+
   }
 }
 

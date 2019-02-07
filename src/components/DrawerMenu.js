@@ -1,37 +1,86 @@
-
 import React, { Component } from 'react';
-import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas';
+import { Label,Menu,Grid,Header,Icon,Dropdown,Modal,Divider} from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
-export default class Drawer extends Component {
+import AnimateHeight from 'react-animate-height';
 
-  componentWillMount() {
-    // sets the initial state
+class Drawer extends Component {
+
+  state= {
+    height:0,
+  };
+
+  toggle = () => {
+    const {height} = this.state;
     this.setState({
-      isMenuOpened: false
+      height: height === 0 ? 'auto' : 0,
     })
   }
 
+
   render() {
+
+    const {height} = this.state
     return (
-      <OffCanvas width={300} transitionDuration={300} isMenuOpened={this.state.isMenuOpened} position={"right"}>
-        <OffCanvasMenu >
-          <p>Placeholder content.</p>
-          <ul>
-            <li>Link 1</li>
-            <li>Link 2</li>
-            <li>Link 3</li>
-            <li>Link 4</li>
-            <li>Link 5</li>
-            <li><a href="#" onClick={this.handleClick.bind(this)}>Toggle Menu</a></li>
-          </ul>
-        </OffCanvasMenu>
-      </OffCanvas>
-    );
+      <Menu size='massive' style={{overflow:"scroll",marginTop: -436,marginLeft: 950,height:600}} vertical>
+        <Menu.Item style={{height:50,marginTop:10}}>
+          <Icon onClick={this.props.closeDrawer} size="large" name="close" style={{marginTop:-10,marginRight:20}} />
+          About
+        </Menu.Item>
+      <Divider />
+        <div>
+         <Menu.Item style={{height:50,marginTop:10}} onClick={ this.toggle }>
+          Channel Details <Icon name="angle right" />
+         </Menu.Item>
+         <AnimateHeight
+           duration={ 500 }
+           height={ height }
+         >
+           <h1>Your content goes here</h1>
+           <p style={{fontSize:14}}>Purpose A place for non-work-related flimflam, faffing,
+              hodge-podge or jibber-jabber you'd prefer to keep out
+              of more focused work-related channels.</p>
+            <div>
+              Created
+            </div>
+         </AnimateHeight>
+       </div>
+      <Divider />
+        <div>
+          <Menu.Item onClick={ this.toggle } style={{height:50,marginTop:10}} name='spam' >
+            Highlights <Icon name="angle right" />
+          </Menu.Item>
+          <AnimateHeight
+            duration={ 500 }
+            height={ height }
+          >
+            <h1>Your content goes here</h1>
+            <p>Put as many React or HTML components here.</p>
+          </AnimateHeight>
+        </div>
+      <Divider />
+        <div>
+          <Menu.Item onClick={ this.toggle } style={{height:50,marginTop:10}} name='updates' a >
+            Members <Icon name="angle right" />
+          </Menu.Item>
+          <AnimateHeight
+            duration={ 500 }
+            height={ height }
+          >
+            <h1>Your content goes here</h1>
+            <p>Put as many React or HTML components here.</p>
+          </AnimateHeight>
+        </div>
+      </Menu>
+      );
+    };
   }
 
-  handleClick() {
-    // toggles the menu opened state
-    this.setState({ isMenuOpened: !this.state.isMenuOpened });
+  function mapStateToProps(state){
+    return{
+      selectedChannel:state.channel.selectedChannel
+    }
   }
 
-}
+export default connect(mapStateToProps,actions)(Drawer);

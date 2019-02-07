@@ -18,10 +18,15 @@ class ChatRoom extends Component {
       messages: [],
       loadedmessages:[]
     };
-    this.messageRef = firebase.database().ref('messages');
+    this.messageRef = firebase.database().ref('messages')
   }
 componentDidMount(){
-  this.listenMessages()
+  this.listenMessages();
+  this.scrollToBottom();
+}
+
+componentDidUpdate(){
+  this.scrollToBottom();
 }
 
   componentWillReceiveProps(nextProps) {
@@ -59,6 +64,10 @@ componentDidMount(){
     this.handleSend();
   }
 
+  scrollToBottom = () => {
+     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+
   listenMessages() {
     let loadedmessages=[]
     this.messageRef
@@ -84,6 +93,8 @@ listMessages = channels =>{
     })
   }
 
+
+
   render() {
 
     const {loadedmessages} =this.state
@@ -97,7 +108,13 @@ listMessages = channels =>{
           <Button style={{marginTop:'5px',marginLeft:620}} size="small" color='green'>Add People</Button>
         <Divider style={{width:1200,marginLeft:"100px"}}  section />
         <div className="chatroom" style={{height:300, width:'90%'}}>
+          <div style={{marginBottom: 140}}>
         {this.listMessages(loadedmessages)}
+        </div>
+        <div style={{ float:"left", clear: "both" }}
+             ref={(el) => { this.messagesEnd = el; }}>
+        </div>
+
         </div>
         <div className="input-button">
           <Input
@@ -108,8 +125,9 @@ listMessages = channels =>{
             onChange={this.handleChange.bind(this)}
             onKeyPress={this.handleKeyPress.bind(this)}
           />
-          <Icon icon="send" className="send" onClick={this.handleSend} />
+          <span ref={el => (this.bottomSpan = el)} />
 
+          <Icon icon="send" className="send" onClick={this.handleSend} />
     </div>
     </Responsive>
     )};
